@@ -1,0 +1,216 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Raipur Admin | Tender</title>
+
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="admin-common.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+</head>
+
+<body>
+
+    <div class="layout">
+
+        <!-- ================= SIDEBAR ================= -->
+        <aside class="sidebar">
+            <h2>RAIPUR ADMIN</h2>
+            <ul>
+                <li>Dashboard</li>
+                <li>Hall Booking</li>
+                <li class="active">Tender List</li>
+                <li>Upcoming Events</li>
+                <li>Gallery</li>
+                <li>Grievance</li>
+                <li>Facility</li>
+                <li>Officer List</li>
+                <li>For Raipurians</li>
+                <li>Report</li>
+                <li>Feedback</li>
+            </ul>
+        </aside>
+
+        <!-- ================= MAIN ================= -->
+        <div class="main">
+
+            <!-- TOPBAR -->
+            <div class="topbar">
+                <div>Tender List</div>
+                <div>Hello Admin | Logout</div>
+            </div>
+
+            <!-- CONTENT -->
+            <div class="content">
+
+                <div class="card">
+
+                    <!-- CARD HEADER -->
+                    <div class="card-header">
+                        <div class="card-title">Tender List</div>
+                        <button class="btn btn-success" id="openAddModal">
+                            + Add New Tender
+                        </button>
+                    </div>
+
+                    <!-- TABLE CONTROLS -->
+                    <div class="table-controls">
+
+                        <div class="entries-box">
+                            Show
+                            <select id="entriesSelect">
+                                <option value="10">10</option>
+                                <option value="20">20</option>
+                                <option value="50">50</option>
+                                <option value="100">100</option>
+                            </select>
+                            entries
+                        </div>
+
+                        <div class="search-container">
+                            <input type="text" id="searchInput" placeholder="Search Tenders...">
+                            <button id="searchBtn">
+                                <i class="fa fa-search"></i>
+                            </button>
+                        </div>
+
+                    </div>
+
+                    <!-- TABLE -->
+                    <div class="table-wrapper">
+                        <table id="TenderTable" class="admin-table">
+
+
+                            <colgroup>
+                                <col style="width:30px">
+                                <col style="width:90px">
+                                <col style="width:100px">
+                                <col style="width:30%">
+                                <col style="width:110px">
+                                <col style="width:100px">
+                                <col style="width:120px">
+                            </colgroup>
+
+                            <thead>
+                                <thead>
+                                    <tr>
+                                        <th>Sr. No.</th>
+                                        <th>Tender No.</th>
+                                        <th>Description</th>
+                                        <th>Publishing Date</th>
+                                        <th>Submission Date</th>
+                                        <th>Opening Date</th>
+                                        <th>File</th>
+                                        <th>Action</th>
+                                    </tr>
+                                </thead>
+                            <tbody>
+                                <tr>
+                                    <td>1</td>
+                                    <td>1234</td>
+                                    <td>ghc</td>
+                                    <td>12-02-16</td>
+                                    <td>12-04-2016</td>
+                                    <td>12-02-16</td>
+                                    <td>Download</td>
+                                    <td>
+                                        <button class="btn btn-primary edit">Edit</button>
+                                        <button class="btn btn-danger delete">Delete</button>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+
+                    <!-- PAGINATION -->
+                    <div class="pagination">
+                        <span id="pageInfo"></span>
+                        <div>
+                            <button class="btn btn-primary" id="prevBtn">Previous</button>
+                            <button class="btn btn-primary" id="nextBtn">Next</button>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+    <!-- ================= ADD / EDIT MODAL ================= -->
+    <div class="modal" id="TenderModal">
+        <div class="modal-content">
+
+            <div class="modal-header">
+                <h3 id="modalTitle">Add Tender</h3>
+                <span class="close" id="closeModal">&times;</span>
+            </div>
+
+            <form id="TenderForm">
+                <input type="hidden" id="editIndex">
+
+                <div class="form-group">
+                    <label>Tender No.</label>
+                    <input type="number" id="tenderNo" required>
+                </div>
+
+                
+                <div class="form-group">
+                    <label>Description</label>
+                    <textarea id="eventDesc" rows="4" required></textarea>
+                </div>
+
+                <div class="form-group">
+                    <label>Publishing Date</label>
+                    <input type="date" id="Publishing" required>
+                </div>
+
+                <div class="form-group">
+                    <label>Submission Date</label>
+                    <input type= "date" id="Submission" required></textarea>
+                </div>
+
+                <div class="form-group">
+                    <label>Opening Date</label>
+                    <input type="date" id="Opening" required>
+                </div>
+
+                <div class="form-group">
+                    <label>File</label>
+                    <input type="file" id="file" required>
+                </div>
+
+                <div class="modal-actions">
+                    <button type="button" class="btn" id="cancelModal">Cancel</button>
+                    <button type="submit" class="btn btn-success">Save</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+
+    <!-- ================= DELETE MODAL ================= -->
+    <div class="modal" id="deleteModal">
+        <div class="modal-content">
+
+            <div class="modal-header">
+                <h3>Confirm Delete</h3>
+            </div>
+
+            <p style="margin:15px 0;">
+                Are you sure you want to delete this Tender?
+            </p>
+
+            <div class="modal-actions">
+                <button class="btn" id="cancelDelete">Cancel</button>
+                <button class="btn btn-danger" id="confirmDelete">Delete</button>
+            </div>
+
+        </div>
+    </div>
+
+    <script src="tender.js"></script>
+</body>
+
+</html>

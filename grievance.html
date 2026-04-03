@@ -1,0 +1,286 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="grievance.css">
+    <title>Document</title>
+
+</head>
+
+<body>
+
+    
+    <div class="layout">
+
+        <!-- ================= SIDEBAR ================= -->
+        <aside class="sidebar">
+            <h2>RAIPUR ADMIN</h2>
+            <ul>
+                <li>Dashboard</li>
+                <li>Hall Booking</li>
+                <li>Tender List</li>
+                <li>Upcoming Events</li>
+                <li>Gallery</li>
+                <li class="active">Grievance</li>
+                <li>Facility</li>
+                <li>Officer List</li>
+                <li>For Raipurians</li>
+                <li>Report</li>
+                <li>Feedback</li>
+            </ul>
+        </aside>
+        
+        <div class="main">
+            
+            <!-- TOPBAR -->
+            <div class="topbar">
+                <div>Grievance</div>
+                <div>Hello Admin | Logout</div>
+            </div>
+            
+            
+            
+            <!-- FILTER CARD -->
+            <div class="content">
+                
+                <div class="card">
+                    
+                    <!-- CARD HEADER -->
+                    <div class="card-header">
+                        <div class="card-title">Grievance Detail</div>
+                    </div>
+                    
+                    <div class="card-body">
+                        
+                        <form class="filter-form">
+                            
+                            <div class="filter-row">
+                                
+                                <div class="form-group">
+                                    <label>Service Type</label>
+                                    <select>
+                                        <option>Choose Section</option>
+                                        <option>Water</option>
+                                        <option>Road</option>
+                                        <option>Electricity</option>
+                                        <option>sarvjanic </option>
+                                    </select>
+                                </div>
+                                
+                                <div class="form-group">
+                                    <label>Date From</label>
+                                    <input type="date">
+                                </div>
+                                
+                                <div class="form-group">
+                                    <label>Date To</label>
+                                    <input type="date">
+                                </div>
+                                
+                                <div class="form-group">
+                                    <label>Mobile</label>
+                                    <input type="text" placeholder="Enter mobile">
+                                </div>
+                                
+                                <div class="form-group">
+                                    <label>Status</label>
+                                    <select>
+                                        <option>Pending</option>
+                                        <option>Resolved</option>
+                                        <option>Rejected</option>
+                                    </select>
+                                </div>
+                                
+                                <div class="form-group btn-group">
+                                    <label>&nbsp;</label>
+                                    <button type="submit" class="btn btn-primary">Submit</button>
+                                </div>
+                                
+                            </div>
+                            
+                            <div class="export-box">
+                                <button class="btn btn-success">Export CSV</button>
+                            </div>
+                            
+                        </form>
+                        
+                    </div>
+                    
+                </form>
+                
+            </div>
+            
+        </div>
+        
+    </div>
+    
+</div>
+    
+    
+    
+    <!-- CONTENT -->
+    <div class="content1">
+        
+        <div class="card1">
+            
+            <!-- CARD HEADER -->
+            <div class="card-header">
+                <div class="card-title">Grievance Detail</div>
+                <button class="btn btn-success" id="openAddModal">
+                    + Add New
+                </button>
+            </div>
+            
+            <!-- TABLE CONTROLS -->
+            <div class="table-controls">
+                
+                <div class="entries-box">
+                    Show
+                    <select id="entriesSelect">
+                        <option value="10">10</option>
+                        <option value="20">20</option>
+                        <option value="50">50</option>
+                        <option value="100">100</option>
+                    </select>
+                    entries
+                </div>
+                
+                <div class="search-container">
+                    <input type="text" id="searchInput" placeholder="Search Grievance...">
+                    <button id="searchBtn">
+                        <i class="fa fa-search"></i>
+                    </button>
+                </div>
+                
+            </div>
+            
+            <!-- TABLE -->
+            <h2>Complain List</h2>
+            <div class="table-wrapper">
+                <table id="eventsTable" class="admin-table">
+                    
+                    
+                    <colgroup>
+                        <col style="width:60px">
+                        <col style="width:120px">
+                        <col style="width:110px">
+                        <col style="width:40%">
+                        <col style="width:160px">
+                        <col style="width:100px">
+                        <col style="width:120px">
+                    </colgroup>
+                    
+                    <thead>
+                        <thead>
+                            <tr>
+                                <th>Sr No.</th>
+                                <th>Mobile No</th>
+                                <th>Name</th>
+                                <th>Service Type</th>
+                                <th>Date</th>
+                                <th>Remark</th>
+                                
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>1</td>
+                                <td>1234567890</td>
+                                <td>Ansbah</td>
+                                <td>atikraman</td>
+                                <td>32/45/1999995</td>
+                                <td>good</td>
+                                
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+                
+                <!-- PAGINATION -->
+                <div class="pagination">
+                    <span id="pageInfo"></span>
+                    <div>
+                        <button class="btn btn-primary" id="prevBtn">Previous</button>
+                        <button class="btn btn-primary" id="nextBtn">Next</button>
+                    </div>
+                </div>
+                
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<!-- ================= ADD / EDIT MODAL ================= -->
+<div class="modal" id="Grievancemodal">
+    <div class="modal-content">
+        
+        <div class="modal-header">
+            <h3 id="modalTitle">Add New</h3>
+            <span class="close" id="closeModal">&times;</span>
+        </div>
+        
+        <form id="grievanceForm">
+            <input type="hidden" id="editIndex">
+            
+            <div class="form-group">
+                <label>Mobile No</label>
+                <input type="tel" id="Mobile" required>
+            </div>
+            
+            <div class="form-group">
+                <label>Name</label>
+                <input type="text" id="name" required>
+            </div>
+            
+            <div class="form-group">
+                <label>Service Type</label>
+                <input type="text" id="service" required>
+            </div>
+            
+            <div class="form-group">
+                <label>Date</label>
+                <input type="date" id="date" required>
+            </div>
+            
+            <div class="form-group">
+                <label>Remark</label>
+                <input type="text" id="Remark" required>
+            </div>
+            
+            
+            
+            <div class="modal-actions">
+                <button type="button" class="btn" id="cancelModal">Cancel</button>
+                <button type="submit" class="btn btn-success">Save</button>
+            </div>
+        </form>
+    </div>
+</div>
+
+
+<!-- ================= DELETE MODAL ================= -->
+<div class="modal" id="deleteModal">
+    <div class="modal-content">
+        
+        <div class="modal-header">
+            <h3>Confirm Delete</h3>
+        </div>
+        
+        <p style="margin:15px 0;">
+            Are you sure you want to delete this event?
+        </p>
+        
+        <div class="modal-actions">
+            <button class="btn" id="cancelDelete">Cancel</button>
+            <button class="btn btn-danger" id="confirmDelete">Delete</button>
+        </div>
+        
+    </div>
+</div>
+<script src="grievance.js"></script>
+</body>
+
+</html>

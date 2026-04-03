@@ -1,0 +1,385 @@
+/* ================= RESET ================= */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Poppins', sans-serif;
+}
+
+body {
+    background: #f4f7fc;
+}
+
+/* ================= LAYOUT ================= */
+.layout {
+    display: flex;
+}
+
+.sidebar {
+    width: 260px;
+    min-height: 100vh;
+    background: #1e3c72;
+    color: #fff;
+    padding-top: 20px;
+}
+
+.sidebar h2 {
+    text-align: center;
+    padding-bottom: 20px;
+    border-bottom: 1px solid rgba(255,255,255,0.1);
+    font-size: 18px;
+}
+
+.sidebar ul {
+    list-style: none;
+}
+
+.sidebar li {
+    padding: 12px 25px;
+    cursor: pointer;
+    font-size: 14px;
+    color: rgba(255,255,255,0.8);
+}
+
+.sidebar li:hover,
+.sidebar .active {
+    background: rgba(255,255,255,0.1);
+    color: #fff;
+}
+
+.main {
+    flex: 1;
+}
+
+.topbar {
+    background: #fff;
+    padding: 15px 30px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+}
+
+/* ================= CONTENT ================= */
+.content {
+    padding: 25px;
+}
+
+.card {
+    background: #fff;
+    border-radius: 8px;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.05);
+    overflow: hidden;
+}
+
+.card-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 15px 20px;
+    border-bottom: 1px solid #f0f0f0;
+}
+
+.card-title {
+    font-size: 18px;
+    font-weight: 600;
+}
+
+/* ================= TABLE ================= */
+.table-controls {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 15px 20px;
+    background: #fcfcfc;
+    border-bottom: 1px solid #f0f0f0;
+    flex-wrap: wrap;
+    gap: 10px;
+}
+
+.entries-box {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-size: 14px;
+}
+
+.admin-table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 11px;
+}
+
+.admin-table th {
+    padding: 15px;
+    background: #f8faff;
+    color: #2a5298;
+    text-align: left;
+    border-bottom: 2px solid #edf2f7;
+}
+
+.admin-table td {
+    padding: 15px;
+    border-bottom: 1px solid #eee;
+}
+
+.admin-table tbody tr:hover {
+    background: #f5f9ff;
+}
+
+/* ================= SEARCH ================= */
+.search-container {
+    display: flex;
+    align-items: stretch;
+}
+
+.search-container input {
+    padding: 10px 12px;
+    border: 1px solid #ddd;
+    border-right: none;
+    border-radius: 5px 0 0 5px;
+    width: 240px;
+}
+
+.search-container button {
+    width: 45px;
+    background: #2a5298;
+    color: #fff;
+    border: 1px solid #2a5298;
+    border-radius: 0 5px 5px 0;
+    cursor: pointer;
+}
+
+/* ================= BUTTONS ================= */
+.btn {
+    padding: 8px 16px;
+    border-radius: 4px;
+    border: none;
+    cursor: pointer;
+    font-size: 13px;
+}
+
+.btn-primary {
+    background: #2a5298;
+    color: #fff;
+}
+
+.btn-success {
+    background: #28a745;
+    color: #fff;
+}
+
+.btn-danger {
+    background: #e53935;
+    color: #fff;
+}
+
+/* ================= MODAL ================= */
+.modal {
+    display: none;
+    position: fixed;
+    inset: 0;
+    background: rgba(0,0,0,0.5);
+    justify-content: center;
+    align-items: center;
+    z-index: 1000;
+}
+
+.modal-content {
+    background: #fff;
+    border-radius: 8px;
+    padding: 25px;
+    width: 500px;
+    max-width: 95%;
+}
+
+.modal-header {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 15px;
+    margin-bottom: 20px;
+}
+
+.modal-actions {
+    display: flex;
+    justify-content: flex-end;
+    gap: 10px;
+    margin-top: 15px;
+}
+.modal-header h3 {
+    font-size: 18px;
+    font-weight: 600;
+}
+
+.modal-header .close {
+    cursor: pointer;
+    font-size: 18px;
+}
+/* ================= MODAL FORM STYLING ================= */
+
+.form-group {
+    margin-bottom: 16px;
+}
+
+.form-group label {
+    display: block;
+    font-size: 13px;
+    font-weight: 500;
+    margin-bottom: 6px;
+    color: #2c3e50;
+}
+
+.form-group input,
+.form-group textarea {
+    width: 100%;
+    padding: 9px 10px;
+    border: 1px solid #d1d5db;
+    border-radius: 5px;
+    font-size: 13px;
+    background: #fff;
+    outline: none;
+    transition: all 0.2s ease;
+}
+
+.form-group input:focus,
+.form-group textarea:focus {
+    border-color: #2a5298;
+    box-shadow: 0 0 0 3px rgba(42,82,152,0.1);
+}
+
+.form-group textarea {
+    resize: none;
+}
+
+/* ================= PAGINATION ================= */
+.pagination {
+    padding: 15px 20px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+
+.admin-table {
+    width: 100%;
+    table-layout: fixed;
+}
+
+.admin-table td:nth-child(4) {
+    white-space: normal;
+    word-break: break-word;
+}
+
+
+/* ================= RESPONSIVE ================= */
+@media (max-width: 768px) {
+    .layout {
+        flex-direction: column;
+    }
+
+    .sidebar {
+        width: 100%;
+    }
+
+    .table-controls {
+        flex-direction: column;
+        align-items: flex-start;
+    }
+
+    .search-container input {
+        width: 100%;
+    }
+}
+/* ===== Responsive Table ===== */
+
+.table-wrapper {
+    width: 100%;
+    overflow-x: auto;
+}
+
+@media (max-width: 1024px) {
+    .admin-table {
+        min-width: 900px;
+    }
+}
+
+.filter-form{
+    max-width:1200px;
+    margin:auto;
+}
+
+/* Single Row Layout */
+.filter-row{
+    display:flex;
+    flex-wrap:wrap;
+    align-items:flex-end;
+    justify-content:center;
+    gap:20px;
+}
+
+/* Form Group */
+.form-group{
+    display:flex;
+    flex-direction:column;
+    min-width:170px;
+}
+
+/* Label */
+.form-group label{
+    font-size:14px;
+    margin-bottom:5px;
+    font-weight:500;
+}
+
+/* Inputs */
+.form-group input,
+.form-group select{
+    padding:7px 10px;
+    border:1px solid #ccc;
+    border-radius:5px;
+    font-size:14px;
+}
+
+/* Submit button alignment */
+.btn-group{
+    justify-content:flex-end;
+}
+
+/* Export button center */
+.export-box{
+    text-align:center;
+    margin-top:25px;
+}
+
+/* Buttons */
+.btn{
+    padding:8px 20px;
+    border:none;
+    border-radius:6px;
+    cursor:pointer;
+    font-size:14px;
+}
+
+.btn-primary{
+    background:#2d5aa7;
+    color:#fff;
+}
+
+.btn-success{
+    background:#28a745;
+    color:#fff;
+}
+.content1 {
+    padding: 60px;
+    margin-top: -560px;
+    margin-left: 225px;
+    height: 100px;
+    width: 1480px;
+}
+.card1 {
+    background: white;
+    border-radius: 8px;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.05);
+    overflow: hidden;
+    height: 350px;
+}

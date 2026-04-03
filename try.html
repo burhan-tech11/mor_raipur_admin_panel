@@ -1,0 +1,208 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Raipur Admin | Tender</title>
+
+<!-- Tailwind -->
+<script src="https://cdn.tailwindcss.com"></script>
+
+<!-- Font Awesome -->
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+
+<style>
+body{font-family:Inter,sans-serif;background:#f3f4f6}
+
+/* Sidebar */
+.sidebar-item:hover{background:rgba(255,255,255,0.08)}
+.active-link{background:#3567d6!important;color:#fff}
+
+/* Table */
+.table-wrapper{overflow-x:auto}
+table{width:100%;border-collapse:collapse;background:#fff}
+th,td{padding:10px;border:1px solid #ddd;text-align:center}
+th{background:#f1f1f1}
+
+/* Buttons */
+.btn{padding:6px 12px;border:none;border-radius:5px;cursor:pointer}
+.btn-primary{background:#3498db;color:#fff}
+.btn-danger{background:#e74c3c;color:#fff}
+.btn-success{background:#2ecc71;color:#fff}
+
+/* Modal */
+.modal{display:none;position:fixed;top:0;left:0;width:100%;height:100%;background:rgba(0,0,0,0.5)}
+.modal-content{background:#fff;padding:20px;width:400px;margin:80px auto;border-radius:10px}
+</style>
+</head>
+
+<body class="flex h-screen overflow-hidden">
+
+<!-- ================= SIDEBAR ================= -->
+<aside class="w-64 bg-[#0a192f] text-gray-300 flex flex-col">
+
+<div class="p-6 flex items-center space-x-3">
+<div class="bg-white p-2 rounded">
+<i class="fas fa-university text-[#0a192f]"></i>
+</div>
+<div>
+<p class="text-[15px] uppercase tracking-wider">Raipur Municipal Corporation</p>
+</div>
+</div>
+
+<nav class="flex-1 px-4 space-y-1 text-sm">
+
+<div class="active-link p-3 mb-4 flex items-center space-x-3 rounded">
+<i class="fas fa-th-large"></i>
+<span>Dashboard</span>
+</div>
+
+<p class="text-[10px] uppercase font-bold text-gray-500 py-2">Management</p>
+
+<a href="#" class="sidebar-item flex items-center space-x-4 p-2 rounded">
+<i class="fas fa-file-invoice"></i><span><b><i>Tenders</i></b></span>
+</a>
+
+<a href="#" class="sidebar-item flex items-center space-x-4 p-2 rounded">
+<i class="fas fa-exclamation-circle"></i><span><b><i>Grievance</i></b></span>
+</a>
+
+<a href="#" class="sidebar-item flex items-center space-x-4 p-2 rounded">
+<i class="fas fa-calendar-alt"></i><span><b><i>Upcoming Events</i></b></span>
+</a>
+
+<a href="#" class="sidebar-item flex items-center space-x-4 p-2 rounded">
+<i class="fas fa-images"></i><span><b><i>Gallery</i></b></span>
+</a>
+
+<a href="#" class="sidebar-item flex items-center space-x-4 p-2 rounded">
+<i class="fas fa-user-tie"></i><span><b><i>Officer List</i></b></span>
+</a>
+
+<p class="text-[10px] uppercase font-bold text-gray-500 py-6">Public Services</p>
+
+<a href="#" class="sidebar-item flex items-center space-x-4 p-2 rounded">
+<i class="fas fa-key"></i><span><b><i>Hall Booking</i></b></span>
+</a>
+
+<a href="#" class="sidebar-item flex items-center space-x-4 p-2 rounded">
+<i class="fas fa-users"></i><span><b><i>For Raipurians</i></b></span>
+</a>
+
+<a href="#" class="sidebar-item flex items-center space-x-4 p-2 rounded">
+<i class="fas fa-edit"></i><span><b><i>Detail Update</i></b></span>
+</a>
+
+<a href="#" class="sidebar-item flex items-center space-x-4 p-2 rounded">
+<i class="fas fa-tint"></i><span><b><i>Water Tank</i></b></span>
+</a>
+
+<a href="#" class="sidebar-item flex items-center space-x-4 p-2 rounded">
+<i class="fas fa-comment-dots"></i><span><b><i>Feedback</i></b></span>
+</a>
+
+<a href="#" class="sidebar-item flex items-center space-x-4 p-2 rounded">
+<i class="fas fa-chart-line"></i><span><b><i>Reports</i></b></span>
+</a>
+
+</nav>
+</aside>
+
+<!-- ================= MAIN ================= -->
+<div class="flex-1 flex flex-col">
+
+<!-- TOPBAR -->
+<div class="flex justify-between items-center bg-white p-4 shadow">
+<h2 class="text-xl font-bold">Tender List</h2>
+
+<div>
+Hello Admin |
+<button class="ml-2">
+<i class="fa-solid fa-right-from-bracket"></i> Logout
+</button>
+</div>
+</div>
+
+<!-- CONTENT -->
+<div class="p-6">
+
+<div class="bg-white p-4 rounded shadow">
+
+<div class="flex justify-between mb-4">
+<h3 class="text-lg font-semibold">Tender List</h3>
+<button class="btn btn-success" onclick="openModal()">+ Add New Tender</button>
+</div>
+
+<!-- SEARCH -->
+<input type="text" placeholder="Search..." class="border p-2 mb-4 w-full">
+
+<!-- TABLE -->
+<div class="table-wrapper">
+<table>
+<thead>
+<tr>
+<th>Sr</th>
+<th>Tender No</th>
+<th>Description</th>
+<th>Publish</th>
+<th>Submit</th>
+<th>Open</th>
+<th>File</th>
+<th>Action</th>
+</tr>
+</thead>
+
+<tbody id="tableData">
+<tr>
+<td>1</td>
+<td>1234</td>
+<td>Demo Tender</td>
+<td>01-01-2024</td>
+<td>05-01-2024</td>
+<td>06-01-2024</td>
+<td>Download</td>
+<td>
+<button class="btn btn-primary">Edit</button>
+<button class="btn btn-danger">Delete</button>
+</td>
+</tr>
+</tbody>
+
+</table>
+</div>
+
+</div>
+
+</div>
+
+</div>
+
+<!-- ================= MODAL ================= -->
+<div class="modal" id="modal">
+<div class="modal-content">
+
+<h3>Add Tender</h3>
+
+<input type="text" placeholder="Tender No" class="border p-2 w-full mb-2">
+<input type="text" placeholder="Description" class="border p-2 w-full mb-2">
+
+<div class="flex gap-2">
+<button class="btn btn-success">Save</button>
+<button class="btn" onclick="closeModal()">Cancel</button>
+</div>
+
+</div>
+</div>
+
+<script>
+function openModal(){
+document.getElementById('modal').style.display='block';
+}
+
+function closeModal(){
+document.getElementById('modal').style.display='none';
+}
+</script>
+
+</body>
+</html>

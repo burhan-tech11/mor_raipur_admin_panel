@@ -1,0 +1,215 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Raipur Admin | Database Integrated</title>
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+<style>
+    *{ margin:0; padding:0; box-sizing:border-box; font-family:'Poppins',sans-serif; }
+    body{ display:flex; background:#f4f7fc; color: #333; }
+
+    /* Sidebar */
+    .sidebar{ width:280px; height:100vh; background:linear-gradient(180deg,#1e3c72,#2a5298); color:#fff; position:fixed; padding-top:20px; overflow-y:auto; z-index: 1000; }
+    .sidebar h2{ text-align:center; margin-bottom:25px; font-size: 18px; border-bottom: 1px solid rgba(255,255,255,0.1); padding-bottom: 20px; }
+    .sidebar ul{ list-style:none; }
+    .sidebar ul li a{ padding:12px 20px; text-decoration:none; color:rgba(255,255,255,0.7); display:flex; align-items: center; font-size: 13px; cursor: pointer; }
+    .sidebar ul li a:hover { color: #fff; background: rgba(255,255,255,0.1); }
+    
+    .dropdown-container { display: block; background: rgba(0,0,0,0.2); list-style: none; padding: 5px 0; border-left: 3px solid #ff9800; }
+    .dropdown-container li a { padding-left: 50px !important; }
+    .active-sub { background: rgba(255,255,255,0.15); color: #ff9800 !important; font-weight: 600; }
+
+    /* Main Section */
+    .main{ margin-left:280px; width:calc(100% - 280px); min-height: 100vh; }
+    .topbar{ background:#fff; padding:15px 30px; display:flex; justify-content:space-between; align-items:center; box-shadow:0 2px 10px rgba(0,0,0,0.05); position: sticky; top: 0; z-index: 99; }
+
+    .content{ padding:25px; }
+    .view-section { display: none; }
+    .view-section.active { display: block; }
+    
+    .card{ background:#fff; padding:20px; border-radius:10px; box-shadow:0 4px 15px rgba(0,0,0,0.05); }
+    .card-header { display: flex; justify-content: space-between; align-items: center; border-bottom: 1px solid #eee; margin-bottom: 15px; padding-bottom: 10px; }
+    
+    /* Tables */
+    .table-responsive { overflow-x: auto; }
+    table { width: 100%; border-collapse: collapse; white-space: nowrap; font-size: 13px; }
+    table th { padding: 12px; text-align: left; background: #f8faff; color: #2a5298; border-bottom: 2px solid #edf2f7; }
+    table td { padding: 12px; border-bottom: 1px solid #eee; }
+    
+    /* Buttons & Badges */
+    .btn-add { background:#28a745; color:#fff; border:none; padding:7px 15px; border-radius:4px; cursor:pointer; font-size: 12px; }
+    .btn-del { background:#e74c3c; color:#fff; border:none; padding:4px 8px; border-radius:3px; cursor:pointer; }
+    .status-badge { padding: 3px 8px; border-radius: 3px; font-size: 10px; font-weight: 600; text-transform: uppercase; }
+    .bg-green { background: #dcfce7; color: #166534; }
+    .bg-orange { background: #fef3c7; color: #92400e; }
+    .bg-red { background: #fee2e2; color: #dc2626; }
+    .bg-blue { background: #e0e7ff; color: #4338ca; }
+
+    /* Modal */
+    .modal { display: none; position: fixed; z-index: 2000; left: 0; top: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.5); }
+    .modal-content { background: #fff; margin: 5% auto; padding: 20px; border-radius: 8px; width: 450px; }
+    .modal-content input, .modal-content select { width: 100%; padding: 8px; margin: 10px 0; border: 1px solid #ddd; border-radius: 4px; }
+</style>
+</head>
+<body>
+
+<div class="sidebar">
+    <h2>RAIPUR ADMIN</h2>
+    <ul>
+        <li><a onclick="showView('master-view')"><i class="fas fa-th-large"></i> Dashboard</a></li>
+        <li>
+            <a><i class="fas fa-hotel"></i> Hall Booking</a>
+            <ul class="dropdown-container">
+                <li onclick="showView('master-view', this)" class="active-sub"><a>Community Hall</a></li>
+                <li onclick="showView('history-view', this)"><a>Booked History List</a></li>
+                <li onclick="showView('hold-view', this)"><a>Hold List</a></li>
+                <li onclick="showView('booked-view', this)"><a>Booked List</a></li>
+                <li onclick="showView('canceled-view', this)"><a>Canceled List</a></li>
+                <li onclick="showView('refund-view', this)"><a>Refunded List</a></li>
+                <li onclick="showView('pending-refund-view', this)"><a>Pending Refund List</a></li>
+            </ul>
+        </li>
+        <li onclick="showView('water-view', this)"><a><i class="fas fa-tint"></i> Water Tank</a></li>
+    </ul>
+</div>
+
+<div class="main">
+    <div class="topbar">
+        <h4 id="page-title">Community Hall Master List</h4>
+        <div>Admin Raipur | <small style="color:red; cursor:pointer" onclick="localStorage.clear(); location.reload();">Clear All Data</small></div>
+    </div>
+
+    <div class="content">
+        <div id="main-content-area">
+            <div class="card">
+                <div class="card-header">
+                    <h5 id="table-title">Data List</h5>
+                    <button class="btn-add" onclick="openModal()">+ Add New Entry</button>
+                </div>
+                <div class="table-responsive">
+                    <table id="dynamicTable">
+                        <thead id="tableHead"></thead>
+                        <tbody id="tableBody"></tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div id="dataModal" class="modal">
+    <div class="modal-content">
+        <h3 id="modalHeading">Add Details</h3>
+        <div id="formFields"></div>
+        <div style="text-align:right; margin-top:15px;">
+            <button onclick="closeModal()" style="padding:7px 15px; border:none; background:#ccc; border-radius:4px; cursor:pointer;">Cancel</button>
+            <button onclick="saveData()" style="padding:7px 15px; border:none; background:#28a745; color:#fff; border-radius:4px; cursor:pointer;">Save to Database</button>
+        </div>
+    </div>
+</div>
+
+<script>
+    let currentView = 'master-view';
+    
+    // Default Content (Screenshots ka data)
+    const defaultData = {
+        'master-view': [{name: 'सुभाष स्टेडियम', rent: '₹ 1000', addr: 'Moti Bagh, Raipur'}],
+        'history-view': [{ref: '#HST-101', name: 'Rajesh Kumar', mob: '9827100001', hall: 'सुभाष स्टेडियम', from: '10-01-2026', to: '12-01-2026', days: '2', status: 'Completed'}],
+        'hold-view': [{ref: '#HLD-501', name: 'Amit Sharma', mob: '9109122334', hall: 'सुभाष स्टेडियम', from: '25-02-2026', to: '26-02-2026', days: '1', status: 'On Hold'}],
+        'booked-view': [{ref: '#BK-701', name: 'Mohit Sahu', mob: '9123456789', hall: 'इंडोर स्टेडियम', from: '20-02-2026', to: '22-02-2026', pay: '₹ 3,000', status: 'Booked'}],
+        'canceled-view': [{ref: '#CAN-101', name: 'Rahul Verma', hall: 'सुभाष स्टेडियम', from: '15-02-2026', pay: '₹ 1,000', status: 'Canceled'}],
+        'refund-view': [{ref: '#RF-201', name: 'Karan Soni', mob: '9826012345', hall: 'इंडोर स्टेडियम', days: '2', pay: '₹ 2,000', status: 'Refunded'}],
+        'pending-refund-view': [{ref: '#PR-301', name: 'Anil Deshmukh', mob: '9893012345', hall: 'सुभाष स्टेडियम', from: '15-02-2026', to: '16-02-2026', days: '1', pay: '₹ 1,000', status: 'Pending'}],
+        'water-view': [{vno: 'CG-04-MB-1234', cap: '5000L', price: '₹ 500', zone: 'Zone 1', status: 'Active'}]
+    };
+
+    // Initialize Database
+    if(!localStorage.getItem('raipurDB')) {
+        localStorage.setItem('raipurDB', JSON.stringify(defaultData));
+    }
+
+    function showView(viewId, element) {
+        currentView = viewId;
+        if(element) {
+            document.querySelectorAll('.sidebar li').forEach(li => li.classList.remove('active-sub'));
+            element.classList.add('active-sub');
+        }
+        renderTable();
+    }
+
+    function renderTable() {
+        const db = JSON.parse(localStorage.getItem('raipurDB'));
+        const data = db[currentView] || [];
+        const head = document.getElementById('tableHead');
+        const body = document.getElementById('tableBody');
+        
+        // Dynamic Headers based on Screenshot columns
+        let headerHTML = `<tr><th>Sr.</th>`;
+        if(currentView === 'master-view') headerHTML += `<th>Hall Name</th><th>Rent</th><th>Address</th>`;
+        else if(currentView === 'water-view') headerHTML += `<th>Vehicle No</th><th>Capacity</th><th>Price</th><th>Zone</th><th>Status</th>`;
+        else if(currentView === 'canceled-view') headerHTML += `<th>Ref No</th><th>Name</th><th>Hall</th><th>Date</th><th>Pay</th><th>Status</th>`;
+        else headerHTML += `<th>Ref No</th><th>User Name</th><th>Mobile</th><th>Hall Name</th><th>Dates</th><th>Pay/Days</th><th>Status</th>`;
+        headerHTML += `<th>Action</th></tr>`;
+        head.innerHTML = headerHTML;
+
+        body.innerHTML = '';
+        data.forEach((item, index) => {
+            let row = body.insertRow();
+            let content = `<td>${index + 1}</td>`;
+            if(currentView === 'master-view') content += `<td>${item.name}</td><td>${item.rent}</td><td>${item.addr}</td>`;
+            else if(currentView === 'water-view') content += `<td>${item.vno}</td><td>${item.cap}</td><td>${item.price}</td><td>${item.zone}</td><td><span class="status-badge bg-green">${item.status}</span></td>`;
+            else if(currentView === 'canceled-view') content += `<td>${item.ref}</td><td>${item.name}</td><td>${item.hall}</td><td>${item.from}</td><td>${item.pay}</td><td><span class="status-badge bg-red">${item.status}</span></td>`;
+            else content += `<td>${item.ref}</td><td>${item.name}</td><td>${item.mob}</td><td>${item.hall}</td><td>${item.from}</td><td>${item.pay || item.days}</td><td><span class="status-badge bg-blue">${item.status}</span></td>`;
+            
+            content += `<td><button class="btn-del" onclick="deleteData(${index})"><i class="fas fa-trash"></i></button></td>`;
+            row.innerHTML = content;
+        });
+    }
+
+    function openModal() {
+        const fields = document.getElementById('formFields');
+        fields.innerHTML = '';
+        if(currentView === 'master-view') fields.innerHTML = `<input id="f1" placeholder="Hall Name"> <input id="f2" placeholder="Rent"> <input id="f3" placeholder="Address">`;
+        else if(currentView === 'water-view') fields.innerHTML = `<input id="f1" placeholder="Vehicle No"> <input id="f2" placeholder="Capacity"> <input id="f3" placeholder="Price"> <input id="f4" placeholder="Zone">`;
+        else fields.innerHTML = `<input id="f1" placeholder="Ref No"> <input id="f2" placeholder="User Name"> <input id="f3" placeholder="Hall Name"> <input id="f4" placeholder="Date/Pay">`;
+        
+        document.getElementById('dataModal').style.display = 'block';
+    }
+
+    function closeModal() { document.getElementById('dataModal').style.display = 'none'; }
+
+    function saveData() {
+        const db = JSON.parse(localStorage.getItem('raipurDB'));
+        let newItem = {};
+        const v1 = document.getElementById('f1').value;
+        const v2 = document.getElementById('f2').value;
+        const v3 = document.getElementById('f3').value;
+
+        if(currentView === 'master-view') newItem = {name: v1, rent: v2, addr: v3};
+        else if(currentView === 'water-view') newItem = {vno: v1, cap: v2, price: v3, zone: document.getElementById('f4').value, status: 'Active'};
+        else newItem = {ref: v1, name: v2, hall: v3, from: document.getElementById('f4').value, status: 'Added', mob: '-', pay: '-'};
+
+        db[currentView].push(newItem);
+        localStorage.setItem('raipurDB', JSON.stringify(db));
+        renderTable();
+        closeModal();
+    }
+
+    function deleteData(index) {
+        if(confirm("Kyu aap ye record delete karna chahte hain?")) {
+            const db = JSON.parse(localStorage.getItem('raipurDB'));
+            db[currentView].splice(index, 1);
+            localStorage.setItem('raipurDB', JSON.stringify(db));
+            renderTable();
+        }
+    }
+
+    window.onload = renderTable;
+</script>
+</body>
+</html>
+
+

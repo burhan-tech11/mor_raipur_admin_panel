@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Raipur Municipal Admin Panel</title>
+
+<!-- Tailwind -->
+<script src="https://cdn.tailwindcss.com"></script>
+
+<!-- FontAwesome -->
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+<!-- Custom CSS -->
+<link rel="stylesheet" href="dashboard.css">
+</head>
+
+<body class="flex h-screen overflow-hidden">
+
+<header class="header">
+    <div class="header-left">ADMIN PANEL</div>
+
+    <div class="header-right">
+        <img src="https://cdn-icons-png.flaticon.com/512/149/149071.png" class="user-icon">
+        <span>Hello admin | </span>
+        <a href="#">Logout</a>
+    </div>
+</header>
+
+<!-- SIDEBAR -->
+<aside class="w-64 bg-[#0a192f] text-gray-300 flex flex-col">
+    <div class="p-6 flex items-center space-x-3">
+        <div class="bg-white p-2 rounded">
+            <i class="fas fa-university text-[#0a192f]"></i>
+        </div>
+        <p class="text-[15px] uppercase tracking-wider text-white">
+            Raipur Municipal Corporation
+        </p>
+    </div>
+
+    <nav class="flex-1 px-4 space-y-1 text-sm">
+
+        <div class="active-link p-3 mb-4 flex items-center space-x-3 rounded">
+            <i class="fas fa-th-large"></i>
+            <span>Dashboard</span>
+        </div>
+
+        <p class="menu-title">Management</p>
+
+        <a href="tender.html" class="sidebar-item"><i class="fas fa-file-invoice"></i> Tenders</a>
+        <a href="grievance.html" class="sidebar-item"><i class="fas fa-exclamation-circle"></i> Grievance</a>
+        <a href="upcoming.html" class="sidebar-item"><i class="fas fa-calendar-alt"></i> Upcoming Events</a>
+        <a href="gallery.html" class="sidebar-item"><i class="fas fa-images"></i> Gallery</a>
+        <a href="officer.html" class="sidebar-item"><i class="fas fa-user-tie"></i> Officer List</a>
+
+        <p class="menu-title">Public Services</p>
+
+        <a href="hall.html" class="sidebar-item"><i class="fas fa-key"></i> Hall Booking</a>
+        <a href="raipurian.html" class="sidebar-item"><i class="fas fa-users"></i> For Raipurians</a>
+        <a href="update.html" class="sidebar-item"><i class="fas fa-edit"></i> Detail Update</a>
+        <a href="Watertank.html" class="sidebar-item"><i class="fas fa-tint"></i> Water Tank</a>
+        <a href="feedback.html" class="sidebar-item"><i class="fas fa-comment-dots"></i> Feedback</a>
+        <a href="Report.html" class="sidebar-item"><i class="fas fa-chart-line"></i> Reports</a>
+
+    </nav>
+</aside>
+
+<!-- MAIN -->
+<main class="flex-1 flex flex-col min-w-0">
+
+<div class="flex-1 overflow-y-auto p-8">
+
+<div class="flex justify-between items-end mb-8">
+    <div>
+        <h2 class="title">Dashboard Overview</h2>
+        <p class="subtitle">Select a category to manage records and updates.</p>
+    </div>
+
+    <div class="date-box">
+        📅 <span id="todayDate"></span>
+    </div>
+</div>
+
+<!-- CARDS -->
+<div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+
+<a href="tender.html" class="card border-blue-500">Tenders</a>
+<a href="grievance.html" class="card border-red-500">Grievance</a>
+<a href="upcoming.html" class="card border-orange-500">Upcoming Events</a>
+<a href="gallery.html" class="card border-teal-500">Gallery</a>
+<a href="officer.html" class="card border-purple-500">Officer List</a>
+<a href="hall.html" class="card border-yellow-500">Hall Booking</a>
+<a href="raipurian.html" class="card border-pink-500">For Raipurians</a>
+<a href="update.html" class="card border-slate-500">Detail Update</a>
+<a href="Watertank.html" class="card border-yellow-500">Water Tank</a>
+<a href="feedback.html" class="card border-blue-500">Feedback</a>
+<a href="Report.html" class="card border-red-500">Reports</a>
+
+</div>
+</div>
+
+<footer class="footer">
+© 2026 Raipur Municipal Corporation. All Rights Reserved.
+</footer>
+
+</main>
+
+<!-- JS -->
+<script src="dashboard.js"></script>
+
+</body>
+</html>

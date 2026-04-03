@@ -1,0 +1,207 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Raipur Admin | Events</title>
+
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="admin-common.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+    
+</head>
+
+<body>
+
+    <div class="layout">
+
+        <!-- ================= SIDEBAR ================= -->
+        <aside class="sidebar">
+            <h2>RAIPUR ADMIN</h2>
+            <ul>
+                <li>Dashboard</li>
+                <li>Hall Booking</li>
+                <li class="active">Upcoming Events</li>
+                <li>Gallery</li>
+                <li>Grievance</li>
+                <li>Facility</li>
+                <li>Officer List</li>
+                <li>Report</li>
+                <li>Feedback</li>
+            </ul>
+        </aside>
+
+        <!-- ================= MAIN ================= -->
+        <div class="main">
+
+            <!-- TOPBAR -->
+            <div class="topbar">
+                <div> Upcoming Events</div>
+                <div>Hello Admin | Logout</div>
+            </div>
+
+            <!-- CONTENT -->
+            <div class="content">
+
+                <div class="card">
+
+                    <!-- CARD HEADER -->
+                    <div class="card-header">
+                        <div class="card-title">Events List</div>
+                        <button class="btn btn-success" id="openAddModal">
+                            + Add New Event
+                        </button>
+                    </div>
+
+                    <!-- TABLE CONTROLS -->
+                    <div class="table-controls">
+
+                        <div class="entries-box">
+                            Show
+                            <select id="entriesSelect">
+                                <option value="10">10</option>
+                                <option value="20">20</option>
+                                <option value="50">50</option>
+                                <option value="100">100</option>
+                            </select>
+                            entries
+                        </div>
+
+                        <div class="search-container">
+                            <input type="text" id="searchInput" placeholder="Search events...">
+                            <button id="searchBtn">
+                                <i class="fa fa-search"></i>
+                            </button>
+                        </div>
+
+                    </div>
+
+                    <!-- TABLE -->
+                    <div class="table-wrapper">
+                        <table id="eventsTable" class="admin-table">
+
+
+                            <colgroup>
+                                <col style="width:60px">
+                                <col style="width:120px">
+                                <col style="width:110px">
+                                <col style="width:40%">
+                                <col style="width:160px">
+                                <col style="width:100px">
+                                <col style="width:120px">
+                            </colgroup>
+
+                            <thead>
+                                <thead>
+                                    <tr>
+                                        <th>Sr No.</th>
+                                        <th>Date</th>
+                                        <th>Timing</th>
+                                        <th>Description</th>
+                                        <th>Venue</th>
+                                        <th>Category</th>
+                                        <th>Action</th>
+                                    </tr>
+                                </thead>
+                            <tbody>
+                                <tr>
+                                    <td>1</td>
+                                    <td>12-04-2016</td>
+                                    <td>07:00 AM</td>
+                                    <td>Marathon Event</td>
+                                    <td>Telibandha Talab</td>
+                                    <td>Fun</td>
+                                    <td>
+                                        <button class="btn btn-primary width :40px"><i class="fa-solid fa-pencil"></i></button>
+                                        <button class="btn btn-danger delete width :40px"><i class="fa-solid fa-trash"></i></button>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+
+                    <!-- PAGINATION -->
+                    <div class="pagination">
+                        <span id="pageInfo"></span>
+                        <div>
+                            <button class="btn btn-primary" id="prevBtn">Previous</button>
+                            <button class="btn btn-primary" id="nextBtn">Next</button>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+    <!-- ================= ADD / EDIT MODAL ================= -->
+    <div class="modal" id="eventModal">
+        <div class="modal-content">
+
+            <div class="modal-header">
+                <h3 id="modalTitle">Add Event</h3>
+                <span class="close" id="closeModal">&times;</span>
+            </div>
+
+            <form id="eventForm">
+                <input type="hidden" id="editIndex">
+
+                <div class="form-group">
+                    <label>Date</label>
+                    <input type="date" id="eventDate" required>
+                </div>
+
+                <div class="form-group">
+                    <label>Timing</label>
+                    <input type="time" id="eventTime" required>
+                </div>
+
+                <div class="form-group">
+                    <label>Description</label>
+                    <textarea id="eventDesc" rows="4" required></textarea>
+                </div>
+
+                <div class="form-group">
+                    <label>Venue</label>
+                    <input type="text" id="eventVenue" required>
+                </div>
+
+                <div class="form-group">
+                    <label>Category</label>
+                    <input type="text" id="eventCategory" required>
+                </div>
+
+                <div class="modal-actions">
+                    <button type="button" class="btn" id="cancelModal">Cancel</button>
+                    <button type="submit" class="btn btn-success">Save</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+
+    <!-- ================= DELETE MODAL ================= -->
+    <div class="modal" id="deleteModal">
+        <div class="modal-content">
+
+            <div class="modal-header">
+                <h3>Confirm Delete</h3>
+            </div>
+
+            <p style="margin:15px 0;">
+                Are you sure you want to delete this event?
+            </p>
+
+            <div class="modal-actions">
+                <button class="btn" id="cancelDelete">Cancel</button>
+                <button class="btn btn-danger" id="confirmDelete">Delete</button>
+            </div>
+
+        </div>
+    </div>
+
+    <script src="upcoming.js"></script>
+</body>
+
+</html>
