@@ -81,8 +81,13 @@ ADMIN PANEL
 <span>Hello admin |</span>
    <a href="logout.php" style="text-decoration:none;">
 <button>
-    <i class="fa-solid fa-right-from-bracket"></i> Logout
-</button></a>
+    <i class="fa-solid fa-right-from-bracket"></i> 
+    <span onmouseover="this.style.color='red'" 
+          onmouseout="this.style.color='black'">
+        Logout
+    </span>
+</button>
+</a>
 </a>
 </div>
 
